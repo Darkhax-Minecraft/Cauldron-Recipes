@@ -1,0 +1,8 @@
+{
+  "type": "cauldronrecipes:cauldron_recipe",
+  "group": "torch_to_stick",
+  "input": {
+    "item": "minecraft:redstone_torch"
+  },
+  "loot": "cauldronrecipes:cauldron/stick"
+}

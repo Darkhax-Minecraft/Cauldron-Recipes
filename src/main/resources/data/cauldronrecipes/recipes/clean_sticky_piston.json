@@ -1,0 +1,8 @@
+{
+  "type": "cauldronrecipes:cauldron_recipe",
+  "group": "clean_piston",
+  "input": {
+    "item": "minecraft:sticky_piston"
+  },
+  "loot": "cauldronrecipes:cauldron/clean_piston"
+}

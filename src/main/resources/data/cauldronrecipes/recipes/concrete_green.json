@@ -1,0 +1,8 @@
+{
+  "type": "cauldronrecipes:cauldron_recipe",
+  "group": "concrete",
+  "input": {
+    "item": "minecraft:green_concrete_powder"
+  },
+  "loot": "cauldronrecipes:cauldron/concrete_green"
+}
