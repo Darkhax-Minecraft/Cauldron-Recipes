@@ -1,7 +1,0 @@
-{
-  "type": "cauldronrecipes:cauldron_recipe",
-  "input": {
-    "item": "minecraft:red_sand"
-  },
-  "loot": "cauldronrecipes:cauldron/wash_red_sand"
-}

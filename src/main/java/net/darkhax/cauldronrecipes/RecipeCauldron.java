@@ -2,8 +2,6 @@ package net.darkhax.cauldronrecipes;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -23,10 +21,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameterSets;
-import net.minecraft.world.storage.loot.LootParameters;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -39,15 +33,13 @@ public class RecipeCauldron extends RecipeDataBase {
     private final Ingredient input;
     private final int fluidLevel;
     private final ItemStack[] results;
-    private final ResourceLocation loot;
     
-    public RecipeCauldron(ResourceLocation id, Ingredient input, int fluidLevel, ItemStack[] result, @Nullable ResourceLocation loot) {
+    public RecipeCauldron(ResourceLocation id, Ingredient input, int fluidLevel, ItemStack[] result) {
         
         this.id = id;
         this.input = input;
         this.fluidLevel = fluidLevel;
         this.results = result;
-        this.loot = loot;
     }
     
     @Override
@@ -68,6 +60,21 @@ public class RecipeCauldron extends RecipeDataBase {
         return CauldronRecipes.recipeType;
     }
     
+    public int getFluidLevel() {
+        
+        return this.fluidLevel;
+    }
+    
+    public Ingredient getInput () {
+        
+        return this.input;
+    }
+    
+    public ItemStack[] getOutputs () {
+        
+        return this.results;
+    }
+    
     public boolean matches (ItemStack item, int level) {
         
         return this.input.test(item) && this.fluidLevel <= level;
@@ -79,11 +86,11 @@ public class RecipeCauldron extends RecipeDataBase {
         world.setBlockState(pos, state.with(CauldronBlock.LEVEL, currentFluidLevel - this.fluidLevel));
     }
     
-    public void giveLoot (BlockPos pos, BlockState state, ServerPlayerEntity player) {
+    public void giveItems (BlockPos pos, BlockState state, ServerPlayerEntity player) {
         
-        if (results != null) {
+        if (this.results != null) {
             
-            for (ItemStack stack : this.results) {
+            for (final ItemStack stack : this.results) {
                 
                 final ItemStack resultDrop = stack.copy();
                 
@@ -93,31 +100,12 @@ public class RecipeCauldron extends RecipeDataBase {
                 }
             }
         }
-        
-        final LootTable table = player.server.getLootTableManager().getLootTableFromLocation(this.loot);
-        
-        if (table != null && table != LootTable.EMPTY_LOOT_TABLE) {
-            
-            final LootContext.Builder ctxBuilder = new LootContext.Builder(player.getServerWorld());
-            ctxBuilder.withParameter(LootParameters.POSITION, pos);
-            ctxBuilder.withParameter(LootParameters.THIS_ENTITY, player);
-            ctxBuilder.withLuck(player.getLuck());
-            ctxBuilder.withRandom(player.world.rand);
-            
-            for (final ItemStack stack : table.generate(ctxBuilder.build(LootParameterSets.GIFT))) {
-                
-                if (!player.inventory.addItemStackToInventory(stack)) {
-                    
-                    player.dropItem(stack, false);
-                }
-            }
-        }
     }
     
     private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeCauldron> {
         
-        public static ItemStack readItemStack(JsonElement element, boolean acceptNBT) {
-                        
+        public static ItemStack readItemStack (JsonElement element, boolean acceptNBT) {
+            
             if (JSONUtils.isString(element)) {
                 
                 final String identifier = element.getAsString();
@@ -142,13 +130,13 @@ public class RecipeCauldron extends RecipeDataBase {
             throw new JsonSyntaxException("Could not read ItemStack from element. Must be String or Object");
         }
         
-        public static List<ItemStack> readItemStacks(JsonElement element, boolean acceptNBT) {
+        public static List<ItemStack> readItemStacks (JsonElement element, boolean acceptNBT) {
             
-            List<ItemStack> items = NonNullList.create();
+            final List<ItemStack> items = NonNullList.create();
             
             if (element.isJsonArray()) {
                 
-                for (JsonElement subElement : element.getAsJsonArray()) {
+                for (final JsonElement subElement : element.getAsJsonArray()) {
                     
                     items.add(readItemStack(subElement, acceptNBT));
                 }
@@ -162,7 +150,7 @@ public class RecipeCauldron extends RecipeDataBase {
             return items;
         }
         
-        public static ItemStack[] readItemStackArray(PacketBuffer buffer) {
+        public static ItemStack[] readItemStackArray (PacketBuffer buffer) {
             
             final ItemStack[] items = new ItemStack[buffer.readInt()];
             
@@ -174,11 +162,11 @@ public class RecipeCauldron extends RecipeDataBase {
             return items;
         }
         
-        public static void writeItemStackArray(PacketBuffer buffer, ItemStack[] items) {
+        public static void writeItemStackArray (PacketBuffer buffer, ItemStack[] items) {
             
             buffer.writeInt(items.length);
             
-            for (ItemStack stack : items) {
+            for (final ItemStack stack : items) {
                 
                 buffer.writeItemStack(stack);
             }
@@ -188,20 +176,18 @@ public class RecipeCauldron extends RecipeDataBase {
         public RecipeCauldron read (ResourceLocation recipeId, JsonObject json) {
             
             final Ingredient input = Ingredient.deserialize(json.get("input"));
-            final int fluidLevel = JSONUtils.getInt(json, "fluidLevel", 1);            
-            final ItemStack[] results = json.has("result") ? readItemStacks(json.get("result"), true).toArray(new ItemStack[0]) : new ItemStack[0];            
-            final ResourceLocation loot = ResourceLocation.tryCreate(JSONUtils.getString(json, "loot", "minecraft:empty"));
-            return new RecipeCauldron(recipeId, input, fluidLevel, results, loot);
+            final int fluidLevel = JSONUtils.getInt(json, "fluidLevel", 1);
+            final ItemStack[] results = json.has("result") ? readItemStacks(json.get("result"), true).toArray(new ItemStack[0]) : new ItemStack[0];
+            return new RecipeCauldron(recipeId, input, fluidLevel, results);
         }
         
         @Override
         public RecipeCauldron read (ResourceLocation recipeId, PacketBuffer buffer) {
             
             final Ingredient input = Ingredient.read(buffer);
-            final int fluidLevel = buffer.readInt();            
+            final int fluidLevel = buffer.readInt();
             final ItemStack[] results = readItemStackArray(buffer);
-            final ResourceLocation loot = ResourceLocation.tryCreate(buffer.readString());
-            return new RecipeCauldron(recipeId, input, fluidLevel, results, loot);
+            return new RecipeCauldron(recipeId, input, fluidLevel, results);
         }
         
         @Override
@@ -210,7 +196,6 @@ public class RecipeCauldron extends RecipeDataBase {
             recipe.input.write(buffer);
             buffer.writeInt(recipe.fluidLevel);
             writeItemStackArray(buffer, recipe.results);
-            buffer.writeString(recipe.loot.toString());
         }
     }
 }

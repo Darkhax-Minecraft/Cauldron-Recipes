@@ -3,6 +3,5 @@
   "input": {
     "item": "minecraft:magma_cream"
   },
-  "result": "minecraft:slime_ball",
-  "loot": "cauldronrecipes:cauldron/magma_cream_breakdown"
+  "result": "minecraft:slime_ball"
 }

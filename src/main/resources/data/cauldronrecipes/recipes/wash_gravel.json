@@ -1,7 +1,0 @@
-{
-  "type": "cauldronrecipes:cauldron_recipe",
-  "input": {
-    "item": "minecraft:gravel"
-  },
-  "loot": "cauldronrecipes:cauldron/wash_gravel"
-}

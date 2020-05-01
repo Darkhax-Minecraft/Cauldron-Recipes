@@ -1,7 +1,6 @@
 package net.darkhax.cauldronrecipes;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.Collection;
 
 import javax.annotation.Nullable;
 
@@ -16,7 +15,6 @@ import net.minecraft.block.CauldronBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
@@ -28,9 +26,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
-@Mod("cauldronrecipes")
+@Mod(CauldronRecipes.MOD_ID)
 public class CauldronRecipes {
     
+    public static final String MOD_ID = "cauldronrecipes";
     public static final Logger LOGGER = LogManager.getLogger("Cauldron Recipes");
     private final RegistryHelper registry = new RegistryHelper("cauldronrecipes", LOGGER, null);
     
@@ -72,7 +71,7 @@ public class CauldronRecipes {
                     
                     if (player instanceof ServerPlayerEntity) {
                         
-                        recipe.giveLoot(pos, state, (ServerPlayerEntity) player);
+                        recipe.giveItems(pos, state, (ServerPlayerEntity) player);
                     }
                 }
             }
@@ -82,7 +81,7 @@ public class CauldronRecipes {
     @Nullable
     public static RecipeCauldron findRecipe (ItemStack item, int currentFluid) {
         
-        for (final RecipeCauldron recipe : RecipeUtils.getRecipes(recipeType, getManager(null)).values()) {
+        for (final RecipeCauldron recipe : getRecipes()) {
             
             if (recipe.matches(item, currentFluid)) {
                 
@@ -91,6 +90,11 @@ public class CauldronRecipes {
         }
         
         return null;
+    }
+    
+    public static Collection<RecipeCauldron> getRecipes () {
+        
+        return RecipeUtils.getRecipes(recipeType, getManager(null)).values();
     }
     
     public static RecipeManager getManager (@Nullable RecipeManager manager) {
