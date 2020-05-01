@@ -1,0 +1,7 @@
+{
+  "type": "cauldronrecipes:cauldron_recipe",
+  "input": {
+    "tag": "cauldronrecipes:dyed_beds"
+  },
+  "loot": "cauldronrecipes:cauldron/undyed_bed"
+}
