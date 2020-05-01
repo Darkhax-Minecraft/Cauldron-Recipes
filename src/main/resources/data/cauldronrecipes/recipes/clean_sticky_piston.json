@@ -4,5 +4,5 @@
   "input": {
     "item": "minecraft:sticky_piston"
   },
-  "loot": "cauldronrecipes:cauldron/clean_piston"
+  "result": "minecraft:piston"
 }

@@ -3,5 +3,5 @@
   "input": {
     "tag": "cauldronrecipes:dyed_carpets"
   },
-  "loot": "cauldronrecipes:cauldron/undyed_carpet"
+  "result": "minecraft:white_carpet"
 }

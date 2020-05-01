@@ -1,5 +1,8 @@
 package net.darkhax.cauldronrecipes;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.annotation.Nullable;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +16,7 @@ import net.minecraft.block.CauldronBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;

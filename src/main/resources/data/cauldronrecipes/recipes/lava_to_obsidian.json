@@ -4,5 +4,5 @@
     "item": "minecraft:lava_bucket"
   },
   "fluidLevel": 3,
-  "loot": "cauldronrecipes:cauldron/lava_bucket"
+  "result": ["minecraft:bucket", "minecraft:obsidian"]
 }

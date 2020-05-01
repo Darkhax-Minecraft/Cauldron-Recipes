@@ -3,5 +3,5 @@
   "input": {
     "tag": "cauldronrecipes:dyed_beds"
   },
-  "loot": "cauldronrecipes:cauldron/undyed_bed"
+  "result": "minecraft:white_bed"
 }

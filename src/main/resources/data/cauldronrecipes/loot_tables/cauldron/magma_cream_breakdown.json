@@ -6,17 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 1,
-          "name": "minecraft:slime_ball"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 1,
+          "weight": 10,
           "name": "minecraft:blaze_powder",
           "conditions": [
             {

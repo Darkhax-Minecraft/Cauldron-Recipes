@@ -4,5 +4,5 @@
   "input": {
     "item": "minecraft:torch"
   },
-  "loot": "cauldronrecipes:cauldron/stick"
+  "result": "minecraft:stick"
 }

@@ -4,5 +4,5 @@
   "input": {
     "item": "minecraft:gray_concrete_powder"
   },
-  "loot": "cauldronrecipes:cauldron/concrete_gray"
+  "result": "minecraft:gray_concrete"
 }

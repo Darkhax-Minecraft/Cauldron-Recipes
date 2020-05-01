@@ -4,5 +4,5 @@
   "input": {
     "item": "minecraft:orange_concrete_powder"
   },
-  "loot": "cauldronrecipes:cauldron/concrete_orange"
+  "result": "minecraft:orange_concrete"
 }
