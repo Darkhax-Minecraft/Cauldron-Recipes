@@ -1,0 +1,9 @@
+{
+  "type": "cauldronrecipes:cauldron_recipe",
+  "group": "torch_to_stick",
+  "input": {
+    "item": "minecraft:lava_bucket"
+  },
+  "fluidLevel": 3,
+  "loot": "cauldronrecipes:cauldron/lava_bucket"
+}
