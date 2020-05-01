@@ -1,0 +1,7 @@
+{
+  "type": "cauldronrecipes:cauldron_recipe",
+  "input": {
+    "item": "minecraft:magma_cream"
+  },
+  "loot": "cauldronrecipes:cauldron/magma_cream_breakdown"
+}
