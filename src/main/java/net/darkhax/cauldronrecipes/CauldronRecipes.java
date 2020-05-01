@@ -34,59 +34,59 @@ public class CauldronRecipes {
     
     public CauldronRecipes() {
         
-        recipeType = registry.registerRecipeType("cauldron_recipe");
-        registry.registerRecipeSerializer(RecipeCauldron.SERIALIZER, "cauldron_recipe");
+        recipeType = this.registry.registerRecipeType("cauldron_recipe");
+        this.registry.registerRecipeSerializer(RecipeCauldron.SERIALIZER, "cauldron_recipe");
         
         this.registry.initialize(FMLJavaModLoadingContext.get().getModEventBus());
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerClickBlock);
     }
     
-    private void onPlayerClickBlock(PlayerInteractEvent.RightClickBlock event) {
-    	
-    	final World world = event.getWorld();
-    	final PlayerEntity player = event.getPlayer();
-    	final BlockPos pos = event.getPos();
-    	final BlockState state = world.getBlockState(pos);
-    	final ItemStack stack = player.getHeldItem(event.getHand());
-    	
-    	if (state.getBlock() instanceof CauldronBlock) {
-    		
-    		final int initialFluidLevel = state.get(CauldronBlock.LEVEL);
-    		
-    		if (initialFluidLevel > 0) {
-    			
-    			final RecipeCauldron recipe = findRecipe(stack, initialFluidLevel);
-    			
-    			if (recipe != null) {
-    				
-    				if (!player.isCreative()) {
-    					
-    				    recipe.consume(world, stack, pos, state, initialFluidLevel);
-    				}
-    				
-    				event.setCanceled(true);
-    				
-    				if (player instanceof ServerPlayerEntity) {
-    					
-    					recipe.giveLoot(pos, state, (ServerPlayerEntity) player);
-    				}
-    			}
-    		}
-    	}
+    private void onPlayerClickBlock (PlayerInteractEvent.RightClickBlock event) {
+        
+        final World world = event.getWorld();
+        final PlayerEntity player = event.getPlayer();
+        final BlockPos pos = event.getPos();
+        final BlockState state = world.getBlockState(pos);
+        final ItemStack stack = player.getHeldItem(event.getHand());
+        
+        if (state.getBlock() instanceof CauldronBlock) {
+            
+            final int initialFluidLevel = state.get(CauldronBlock.LEVEL);
+            
+            if (initialFluidLevel > 0) {
+                
+                final RecipeCauldron recipe = findRecipe(stack, initialFluidLevel);
+                
+                if (recipe != null) {
+                    
+                    if (!player.isCreative()) {
+                        
+                        recipe.consume(world, stack, pos, state, initialFluidLevel);
+                    }
+                    
+                    event.setCanceled(true);
+                    
+                    if (player instanceof ServerPlayerEntity) {
+                        
+                        recipe.giveLoot(pos, state, (ServerPlayerEntity) player);
+                    }
+                }
+            }
+        }
     }
     
     @Nullable
-    public static RecipeCauldron findRecipe(ItemStack item, int currentFluid) {
-    	
-    	for (RecipeCauldron recipe : RecipeUtils.getRecipes(recipeType, getManager(null)).values()) {
-    		
-    		if (recipe.matches(item, currentFluid)) {
-    			
-    			return recipe;
-    		}
-    	}
-    	
-    	return null;
+    public static RecipeCauldron findRecipe (ItemStack item, int currentFluid) {
+        
+        for (final RecipeCauldron recipe : RecipeUtils.getRecipes(recipeType, getManager(null)).values()) {
+            
+            if (recipe.matches(item, currentFluid)) {
+                
+                return recipe;
+            }
+        }
+        
+        return null;
     }
     
     public static RecipeManager getManager (@Nullable RecipeManager manager) {
