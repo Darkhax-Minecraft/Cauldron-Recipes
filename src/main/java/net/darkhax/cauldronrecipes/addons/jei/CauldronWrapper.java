@@ -34,7 +34,7 @@ public class CauldronWrapper implements IRecipeCategoryExtension {
         
         if (slotIndex == 1) {
             
-            tooltip.add(I18n.format("tooltip.cauldronrecipes.fluid", recipe.getFluidLevel()));
+            tooltip.add(I18n.format("tooltip.cauldronrecipes.fluid", this.recipe.getFluidLevel()));
         }
     }
     

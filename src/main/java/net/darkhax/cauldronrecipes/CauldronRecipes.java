@@ -1,6 +1,6 @@
 package net.darkhax.cauldronrecipes;
 
-import java.util.Collection;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -18,6 +18,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -81,7 +82,7 @@ public class CauldronRecipes {
     @Nullable
     public static RecipeCauldron findRecipe (ItemStack item, int currentFluid) {
         
-        for (final RecipeCauldron recipe : getRecipes()) {
+        for (final RecipeCauldron recipe : getRecipes().values()) {
             
             if (recipe.matches(item, currentFluid)) {
                 
@@ -92,9 +93,9 @@ public class CauldronRecipes {
         return null;
     }
     
-    public static Collection<RecipeCauldron> getRecipes () {
+    public static Map<ResourceLocation, RecipeCauldron> getRecipes () {
         
-        return RecipeUtils.getRecipes(recipeType, getManager(null)).values();
+        return RecipeUtils.getRecipes(recipeType, getManager(null));
     }
     
     public static RecipeManager getManager (@Nullable RecipeManager manager) {

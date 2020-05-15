@@ -60,7 +60,7 @@ public class RecipeCauldron extends RecipeDataBase {
         return CauldronRecipes.recipeType;
     }
     
-    public int getFluidLevel() {
+    public int getFluidLevel () {
         
         return this.fluidLevel;
     }
