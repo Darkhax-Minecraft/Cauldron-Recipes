@@ -1,6 +1,7 @@
 package net.darkhax.cauldronrecipes;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -21,8 +22,12 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
@@ -43,6 +48,8 @@ public class CauldronRecipes {
         
         this.registry.initialize(FMLJavaModLoadingContext.get().getModEventBus());
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerClickBlock);
+        
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onRecipesSynced));
     }
     
     private void onPlayerClickBlock (PlayerInteractEvent.RightClickBlock event) {
@@ -79,6 +86,13 @@ public class CauldronRecipes {
         }
     }
     
+    private void onRecipesSynced (RecipesUpdatedEvent event) {
+        
+        final Map<ResourceLocation, RecipeCauldron> recipes = getRecipes(event.getRecipeManager());
+        final int namespaces = recipes.keySet().stream().map(ResourceLocation::getNamespace).collect(Collectors.toSet()).size();
+        LOGGER.info("Loaded {} cauldron recipes from {} namespaces", recipes.size(), namespaces);
+    }
+    
     @Nullable
     public static RecipeCauldron findRecipe (ItemStack item, int currentFluid) {
         
@@ -95,7 +109,12 @@ public class CauldronRecipes {
     
     public static Map<ResourceLocation, RecipeCauldron> getRecipes () {
         
-        return RecipeUtils.getRecipes(recipeType, getManager(null));
+        return getRecipes(null);
+    }
+    
+    public static Map<ResourceLocation, RecipeCauldron> getRecipes (@Nullable RecipeManager manager) {
+        
+        return RecipeUtils.getRecipes(recipeType, getManager(manager));
     }
     
     public static RecipeManager getManager (@Nullable RecipeManager manager) {
