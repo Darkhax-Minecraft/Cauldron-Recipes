@@ -106,7 +106,7 @@ public class RecipeCauldron extends RecipeDataBase {
         
         public static ItemStack readItemStack (JsonElement element, boolean acceptNBT) {
             
-            if (JSONUtils.isString(element)) {
+            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
                 
                 final String identifier = element.getAsString();
                 final Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(identifier));
