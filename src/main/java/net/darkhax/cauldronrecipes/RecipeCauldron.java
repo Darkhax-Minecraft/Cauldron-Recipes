@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-import net.darkhax.bookshelf.item.crafting.RecipeDataBase;
+import net.darkhax.bookshelf.crafting.RecipeDataBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CauldronBlock;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -29,23 +29,16 @@ public class RecipeCauldron extends RecipeDataBase {
     
     public static final IRecipeSerializer<RecipeCauldron> SERIALIZER = new Serializer();
     
-    private final ResourceLocation id;
     private final Ingredient input;
     private final int fluidLevel;
     private final ItemStack[] results;
     
     public RecipeCauldron(ResourceLocation id, Ingredient input, int fluidLevel, ItemStack[] result) {
         
-        this.id = id;
+        super(id);
         this.input = input;
         this.fluidLevel = fluidLevel;
         this.results = result;
-    }
-    
-    @Override
-    public ResourceLocation getId () {
-        
-        return this.id;
     }
     
     @Override

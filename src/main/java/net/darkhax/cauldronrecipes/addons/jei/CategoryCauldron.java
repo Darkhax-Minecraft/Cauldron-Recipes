@@ -1,5 +1,7 @@
 package net.darkhax.cauldronrecipes.addons.jei;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -65,16 +67,16 @@ public class CategoryCauldron implements IRecipeCategory<CauldronWrapper> {
     }
     
     @Override
-    public void draw (CauldronWrapper recipe, double mouseX, double mouseY) {
+    public void draw (CauldronWrapper recipe, MatrixStack matrix, double mouseX, double mouseY) {
         
         // Input & Cauldron
-        this.slotDrawable.draw(0, 0);
-        this.slotDrawable.draw(20, 0);
+        this.slotDrawable.draw(matrix, 0, 0);
+        this.slotDrawable.draw(matrix, 20, 0);
         
         for (int nextSlotId = 2; nextSlotId < 6; nextSlotId++) {
             
             final int relativeSlotId = nextSlotId - 2;
-            this.slotDrawable.draw(55 + 19 * (relativeSlotId % 4), 19 * (relativeSlotId / 4));
+            this.slotDrawable.draw(matrix, 55 + 19 * (relativeSlotId % 4), 19 * (relativeSlotId / 4));
         }
     }
     

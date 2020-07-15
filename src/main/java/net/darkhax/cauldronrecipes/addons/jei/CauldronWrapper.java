@@ -7,8 +7,9 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.darkhax.cauldronrecipes.RecipeCauldron;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class CauldronWrapper implements IRecipeCategoryExtension {
     
@@ -30,11 +31,12 @@ public class CauldronWrapper implements IRecipeCategoryExtension {
         ingredients.setOutputs(VanillaTypes.ITEM, this.outputs);
     }
     
-    public void getTooltip (int slotIndex, boolean input, ItemStack ingredient, List<String> tooltip) {
+    // int arg0, boolean arg1, T arg2, List<ITextComponent> arg3
+    public void getTooltip (int slotIndex, boolean input, ItemStack ingredient, List<ITextComponent> tooltip) {
         
         if (slotIndex == 1) {
             
-            tooltip.add(I18n.format("tooltip.cauldronrecipes.fluid", this.recipe.getFluidLevel()));
+            tooltip.add(new TranslationTextComponent("tooltip.cauldronrecipes.fluid", this.recipe.getFluidLevel()));
         }
     }
     
