@@ -1,11 +1,11 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[35]"
 issueTrackerURL="https://github.com/Darkhax-Minecraft/cauldron-recipes/issues"
 license="LGPL v2.1"
 
 [[mods]]
 modId="cauldronrecipes"
-updateJSONURL="https://updates.blamejared.com/get?n=cauldronrecipes&gv=1.16.3"
+updateJSONURL="https://updates.blamejared.com/get?n=cauldronrecipes&gv=1.16.4"
 version="${version}"
 displayName="${mod_name}"
 displayURL="${mod_download}"
@@ -18,20 +18,20 @@ ${mod_description}
 [[dependencies.cauldronrecipes]]
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[35]"
     ordering="NONE"
-    side="BOTH"
+    side="SERVER"
 
 [[dependencies.cauldronrecipes]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.4]"
     ordering="NONE"
-    side="BOTH"
+    side="SERVER"
 	
 [[dependencies.cauldronrecipes]]
     modId="bookshelf"
     mandatory=true
-    versionRange="[8,)"
+    versionRange="[9,)"
     ordering="AFTER"
-    side="BOTH"
+    side="SERVER"
