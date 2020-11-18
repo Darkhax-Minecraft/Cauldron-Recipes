@@ -73,6 +73,12 @@ public class RecipeCauldron extends RecipeDataBase {
         return this.input.test(item) && this.fluidLevel <= level;
     }
     
+    @Override
+    public boolean isDynamic () {
+        
+        return true;
+    }
+    
     public void consume (World world, ItemStack stack, BlockPos pos, BlockState state, int currentFluidLevel) {
         
         stack.shrink(1);
