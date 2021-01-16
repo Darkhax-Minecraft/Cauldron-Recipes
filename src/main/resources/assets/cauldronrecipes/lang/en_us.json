@@ -1,4 +1,5 @@
 {
   "tooltip.cauldronrecipes.fluid": "Fluid: %d",
-  "cauldronrecipes.title": "Cauldrons"
+  "cauldronrecipes.title": "Cauldrons",
+  "cauldronrecipes.log.crt.dump": "Dumped a list of Cauldron Recipes to your crafttweaker.log."
 }

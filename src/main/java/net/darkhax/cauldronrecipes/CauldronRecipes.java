@@ -8,8 +8,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.darkhax.bookshelf.registry.RegistryHelper;
+import net.darkhax.bookshelf.util.ModUtils;
 import net.darkhax.bookshelf.util.RecipeUtils;
 import net.darkhax.bookshelf.util.SidedExecutor;
+import net.darkhax.cauldronrecipes.addons.crt.CraftTweakerAddon;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CauldronBlock;
 import net.minecraft.client.Minecraft;
@@ -24,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
@@ -43,6 +46,16 @@ public class CauldronRecipes {
         
         this.registry.initialize(FMLJavaModLoadingContext.get().getModEventBus());
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerClickBlock);
+        
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+    }
+    
+    private void setup (FMLCommonSetupEvent event) {
+        
+        if (ModUtils.isInModList("crafttweaker")) {
+            
+            MinecraftForge.EVENT_BUS.register(CraftTweakerAddon.class);
+        }
     }
     
     private void onPlayerClickBlock (PlayerInteractEvent.RightClickBlock event) {
