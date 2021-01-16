@@ -22,10 +22,6 @@ public class Cauldron implements IRecipeManager {
     
     private static final ResourceLocation REGISTRY_LOCATION = new ResourceLocation("cauldronrecipes", "cauldron_recipe");
     
-    public Cauldron() {
-        
-    }
-    
     @ZenCodeType.Method
     public void addRecipe (String id, IIngredient input, IItemStack outputs) {
         
