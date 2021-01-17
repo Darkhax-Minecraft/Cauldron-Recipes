@@ -14,6 +14,7 @@ import com.blamejared.crafttweaker.impl.item.MCItemStack;
 import com.blamejared.crafttweaker_annotations.annotations.NativeTypeRegistration;
 
 import net.darkhax.cauldronrecipes.CauldronRecipeEvent;
+import net.darkhax.cauldronrecipes.RecipeCauldron;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,13 +23,13 @@ import net.minecraft.world.World;
 @NativeTypeRegistration(value = CauldronRecipeEvent.class, zenCodeName = "mods.cauldronrecipes.events.CauldronRecipeEvent")
 public class ZenCauldronRecipeEvent {
     
-//  @Nonnull
-//  @ZenCodeType.Method
-//  @ZenCodeType.Getter("recipe")
-//  public static RecipeCauldron getRecipe (CauldronRecipeEvent.AboutToCraft event) {
-//      
-//      return event.getRecipe();
-//  }
+    @Nonnull
+    @ZenCodeType.Method
+    @ZenCodeType.Getter("recipe")
+    public static RecipeCauldron getRecipe (CauldronRecipeEvent event) {
+        
+        return event.getRecipe();
+    }
     
     @Nonnull
     @ZenCodeType.Method
@@ -80,6 +81,12 @@ public class ZenCauldronRecipeEvent {
         public static List<IItemStack> getOutputs (CauldronRecipeEvent.AboutToCraft event) {
             
             return CraftTweakerHelper.getIItemStacks(event.getOutputs());
+        }
+        
+        @ZenCodeType.Method
+        public static void addOutput (CauldronRecipeEvent.AboutToCraft event, IItemStack output) {
+            
+            event.getOutputs().add(output.getInternal());
         }
         
         @Nonnull

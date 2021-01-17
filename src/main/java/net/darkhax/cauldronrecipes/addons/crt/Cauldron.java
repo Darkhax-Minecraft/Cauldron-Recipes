@@ -13,6 +13,7 @@ import com.blamejared.crafttweaker.impl.helper.CraftTweakerHelper;
 
 import net.darkhax.cauldronrecipes.CauldronRecipes;
 import net.darkhax.cauldronrecipes.RecipeCauldron;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 
@@ -23,30 +24,31 @@ public class Cauldron implements IRecipeManager {
     private static final ResourceLocation REGISTRY_LOCATION = new ResourceLocation("cauldronrecipes", "cauldron_recipe");
     
     @ZenCodeType.Method
-    public void addRecipe (String id, IIngredient input, IItemStack outputs) {
+    public void addRecipe (String id, IIngredient input, IItemStack... outputs) {
         
         this.addRecipe(id, input, 1, outputs);
     }
     
     @ZenCodeType.Method
-    public void addRecipe (String id, IIngredient input, int fluidLevel, IItemStack outputs) {
-        
-        this.addRecipe(id, input, fluidLevel, new IItemStack[] { outputs });
-    }
-    
-    @ZenCodeType.Method
-    public void addRecipe (String id, IIngredient input, IItemStack[] outputs) {
-        
-        this.addRecipe(id, input, 1, outputs);
-    }
-    
-    @ZenCodeType.Method
-    public void addRecipe (String id, IIngredient input, int fluidLevel, IItemStack[] outputs) {
+    public void addRecipe (String id, IIngredient input, int fluidLevel, IItemStack... outputs) {
         
         id = this.validateRecipeName(id);
         final ResourceLocation recipeId = new ResourceLocation(CraftTweaker.MODID, id);
         final RecipeCauldron recipe = new RecipeCauldron(recipeId, input.asVanillaIngredient(), fluidLevel, CraftTweakerHelper.getItemStacks(outputs));
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
+    }
+    
+    @ZenCodeType.Method
+    public RecipeCauldron getRecipe (String id) {
+        
+        final IRecipe<?> info = this.getRecipes().get(ResourceLocation.tryCreate(id));
+        
+        if (info instanceof RecipeCauldron) {
+            
+            return (RecipeCauldron) info;
+        }
+        
+        throw new IllegalStateException("Invalid cauldron recipe ID: " + id);
     }
     
     @Override
