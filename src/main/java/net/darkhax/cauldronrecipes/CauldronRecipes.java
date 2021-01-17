@@ -89,6 +89,7 @@ public class CauldronRecipes {
                         
                         world.setBlockState(pos, state.with(CauldronBlock.LEVEL, initialFluidLevel - recipe.getFluidLevel()));
                         event.setCanceled(true);
+                        event.setCancellationResult(ActionResultType.CONSUME);
                         
                         if (player instanceof ServerPlayerEntity) {
                             
