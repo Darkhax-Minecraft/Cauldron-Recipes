@@ -7,9 +7,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.darkhax.bookshelf.crafting.RecipeDataBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CauldronBlock;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -19,8 +16,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -77,28 +72,6 @@ public class RecipeCauldron extends RecipeDataBase {
     public boolean isDynamic () {
         
         return true;
-    }
-    
-    public void consume (World world, ItemStack stack, BlockPos pos, BlockState state, int currentFluidLevel) {
-        
-        stack.shrink(1);
-        world.setBlockState(pos, state.with(CauldronBlock.LEVEL, currentFluidLevel - this.fluidLevel));
-    }
-    
-    public void giveItems (BlockPos pos, BlockState state, ServerPlayerEntity player) {
-        
-        if (this.results != null) {
-            
-            for (final ItemStack stack : this.results) {
-                
-                final ItemStack resultDrop = stack.copy();
-                
-                if (!player.inventory.addItemStackToInventory(resultDrop)) {
-                    
-                    player.dropItem(resultDrop, false);
-                }
-            }
-        }
     }
     
     private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeCauldron> {

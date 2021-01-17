@@ -11,6 +11,7 @@ import net.darkhax.bookshelf.registry.RegistryHelper;
 import net.darkhax.bookshelf.util.ModUtils;
 import net.darkhax.bookshelf.util.RecipeUtils;
 import net.darkhax.bookshelf.util.SidedExecutor;
+import net.darkhax.cauldronrecipes.CauldronRecipeEvent.AboutToCraft;
 import net.darkhax.cauldronrecipes.addons.crt.CraftTweakerAddon;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CauldronBlock;
@@ -20,6 +21,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -76,16 +78,32 @@ public class CauldronRecipes {
                 
                 if (recipe != null) {
                     
-                    if (!player.isCreative()) {
-                        
-                        recipe.consume(world, stack, pos, state, initialFluidLevel);
-                    }
+                    final AboutToCraft craftEvent = new AboutToCraft(player, recipe, world, state, pos, stack, recipe.getOutputs());
                     
-                    event.setCanceled(true);
-                    
-                    if (player instanceof ServerPlayerEntity) {
+                    if (!MinecraftForge.EVENT_BUS.post(craftEvent)) {
                         
-                        recipe.giveItems(pos, state, (ServerPlayerEntity) player);
+                        if (!player.isCreative()) {
+                            
+                            stack.shrink(1);
+                        }
+                        
+                        world.setBlockState(pos, state.with(CauldronBlock.LEVEL, initialFluidLevel - recipe.getFluidLevel()));
+                        event.setCanceled(true);
+                        
+                        if (player instanceof ServerPlayerEntity) {
+                            
+                            for (final ItemStack outputEntry : craftEvent.getOutputs()) {
+                                
+                                final ItemStack resultDrop = outputEntry.copy();
+                                
+                                if (!player.inventory.addItemStackToInventory(resultDrop)) {
+                                    
+                                    player.dropItem(resultDrop, false);
+                                }
+                            }
+                        }
+                        
+                        MinecraftForge.EVENT_BUS.post(new CauldronRecipeEvent.Crafted(player, recipe, world, state, pos, craftEvent.getOutputs()));
                     }
                 }
             }
