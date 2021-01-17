@@ -56,7 +56,7 @@ public class ZenCauldronRecipeEvent {
     
     @ZenRegister
     @NativeTypeRegistration(value = CauldronRecipeEvent.AboutToCraft.class, zenCodeName = "mods.cauldronrecipes.events.AboutToCraft")
-    static class ZenAboutToCraftEvent {
+    public static class ZenAboutToCraftEvent {
         
         @Nonnull
         @ZenCodeType.Method
@@ -92,7 +92,7 @@ public class ZenCauldronRecipeEvent {
     
     @ZenRegister
     @NativeTypeRegistration(value = CauldronRecipeEvent.Crafted.class, zenCodeName = "mods.cauldronrecipes.events.Crafted")
-    static class ZenCraftedEvent {
+    public static class ZenCraftedEvent {
         
         @Nonnull
         @ZenCodeType.Method
