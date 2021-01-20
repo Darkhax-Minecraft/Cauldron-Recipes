@@ -10,12 +10,12 @@ import org.openzen.zencode.java.ZenCodeType;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.impl.helper.CraftTweakerHelper;
-import com.blamejared.crafttweaker.impl.item.MCItemStack;
 import com.blamejared.crafttweaker_annotations.annotations.NativeTypeRegistration;
 
 import net.darkhax.cauldronrecipes.CauldronRecipeEvent;
 import net.darkhax.cauldronrecipes.RecipeCauldron;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -62,35 +62,29 @@ public class ZenCauldronRecipeEvent {
         @Nonnull
         @ZenCodeType.Method
         @ZenCodeType.Getter("input")
-        public static IItemStack getInput (CauldronRecipeEvent.AboutToCraft event) {
+        public static ItemStack getInput (CauldronRecipeEvent.AboutToCraft event) {
             
-            return new MCItemStack(event.getInput());
+            return event.getInput();
         }
         
         @Nonnull
         @ZenCodeType.Method
         @ZenCodeType.Getter("initialOutputs")
-        public static List<IItemStack> getInitialOutputs (CauldronRecipeEvent.AboutToCraft event) {
+        public static List<ItemStack> getInitialOutputs (CauldronRecipeEvent.AboutToCraft event) {
             
-            return Collections.unmodifiableList(CraftTweakerHelper.getIItemStacks(event.getInitialOutputs()));
+            return event.getInitialOutputs();
         }
         
         @Nonnull
         @ZenCodeType.Method
         @ZenCodeType.Getter("outputs")
-        public static List<IItemStack> getOutputs (CauldronRecipeEvent.AboutToCraft event) {
+        public static List<ItemStack> getOutputs (CauldronRecipeEvent.AboutToCraft event) {
             
-            return CraftTweakerHelper.getIItemStacks(event.getOutputs());
-        }
-        
-        @ZenCodeType.Method
-        public static void addOutput (CauldronRecipeEvent.AboutToCraft event, IItemStack output) {
-            
-            event.getOutputs().add(output.getInternal());
+            return event.getOutputs();
         }
         
         @Nonnull
-        @ZenCodeType.Method("cancel")
+        @ZenCodeType.Method
         public static void cancel (CauldronRecipeEvent.AboutToCraft event) {
             
             event.setCanceled(true);
