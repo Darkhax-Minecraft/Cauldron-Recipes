@@ -1,0 +1,52 @@
+{
+    "parent": "cauldronrecipes:husbandry/use_cauldron_first_time",
+    "display": {
+        "icon": {
+            "item": "minecraft:white_dye"
+        },
+        "title": {
+            "translate": "advancements.cauldronrecipes.undyeing.title"
+        },
+        "description": {
+            "translate": "advancements.cauldronrecipes.undyeing.description"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "rewards": {
+        "experience": 25
+    },
+    "criteria": {
+        "beds": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:undye_beds"
+            }
+        },
+        "carpet": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:undye_carpet"
+            }
+        },
+        "wool": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:undye_wool"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "beds"
+        ],
+        [
+            "carpet"
+        ],
+        [
+            "wool"
+        ]
+    ]
+}

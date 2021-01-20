@@ -1,0 +1,169 @@
+{
+    "parent": "cauldronrecipes:husbandry/use_cauldron_first_time",
+    "display": {
+        "icon": {
+            "item": "minecraft:white_concrete"
+        },
+        "title": {
+            "translate": "advancements.cauldronrecipes.powder_king.title"
+        },
+        "description": {
+            "translate": "advancements.cauldronrecipes.powder_king.description"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "rewards": {
+        "experience": 25
+    },
+    "criteria": {
+        "white": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_white"
+            }
+        },
+        "orange": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_orange"
+            }
+        },
+        "magenta": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_magenta"
+            }
+        },
+        "light_blue": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_light_blue"
+            }
+        },
+        "yellow": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_yellow"
+            }
+        },
+        "lime": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_lime"
+            }
+        },
+        "pink": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_pink"
+            }
+        },
+        "gray": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_gray"
+            }
+        },
+        "light_gray": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_light_gray"
+            }
+        },
+        "cyan": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_cyan"
+            }
+        },
+        "purple": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_purple"
+            }
+        },
+        "blue": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_blue"
+            }
+        },
+        "brown": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_brown"
+            }
+        },
+        "green": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_green"
+            }
+        },
+        "red": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_red"
+            }
+        },
+        "black": {
+            "trigger": "cauldronrecipes:recipe_crafted",
+            "conditions": {
+                "recipe": "cauldronrecipes:concrete_black"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "white"
+        ],
+        [
+            "orange"
+        ],
+        [
+            "magenta"
+        ],
+        [
+            "light_blue"
+        ],
+        [
+            "yellow"
+        ],
+        [
+            "lime"
+        ],
+        [
+            "pink"
+        ],
+        [
+            "gray"
+        ],
+        [
+            "light_gray"
+        ],
+        [
+            "cyan"
+        ],
+        [
+            "purple"
+        ],
+        [
+            "blue"
+        ],
+        [
+            "brown"
+        ],
+        [
+            "green"
+        ],
+        [
+            "red"
+        ],
+        [
+            "black"
+        ]
+    ]
+}
