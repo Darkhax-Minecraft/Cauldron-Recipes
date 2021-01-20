@@ -3,13 +3,21 @@ package net.darkhax.cauldronrecipes.addons.jei;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ibm.icu.text.ListFormatter.Style;
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.darkhax.cauldronrecipes.RecipeCauldron;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DistExecutor;
 
 public class CauldronWrapper implements IRecipeCategoryExtension {
     
@@ -38,6 +46,12 @@ public class CauldronWrapper implements IRecipeCategoryExtension {
             
             tooltip.add(new TranslationTextComponent("tooltip.cauldronrecipes.fluid", this.recipe.getFluidLevel()));
         }
+        
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {            
+            if (Minecraft.getInstance().gameSettings.advancedItemTooltips) {
+                tooltip.add(new StringTextComponent(this.recipe.getId().toString()).mergeStyle(TextFormatting.GRAY));
+            }
+        });
     }
     
     public List<ItemStack> getInputs () {
