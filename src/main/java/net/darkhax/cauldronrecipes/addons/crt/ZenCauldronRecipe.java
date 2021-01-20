@@ -48,6 +48,22 @@ public class ZenCauldronRecipe {
         return Collections.unmodifiableList(CraftTweakerHelper.getIItemStacks(Arrays.stream(recipe.getOutputs()).collect(Collectors.toList())));
     }
     
+    @Nonnull
+    @ZenCodeType.Method
+    @ZenCodeType.Getter("hidden")
+    public static boolean isHidden (RecipeCauldron recipe) {
+        
+        return recipe.isHidden();
+    }
+    
+    @Nonnull
+    @ZenCodeType.Method
+    @ZenCodeType.Setter("hidden")
+    public static void setHidden (RecipeCauldron recipe, boolean hidden) {
+        
+        recipe.setHidden(hidden);
+    }
+    
     @ZenCodeType.Method
     public static void addCraftingHook (RecipeCauldron recipe, Consumer<CauldronRecipeEvent.AboutToCraft> hook) {
         

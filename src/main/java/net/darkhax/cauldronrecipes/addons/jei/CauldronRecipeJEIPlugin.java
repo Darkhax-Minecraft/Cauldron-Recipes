@@ -33,7 +33,7 @@ public class CauldronRecipeJEIPlugin implements IModPlugin {
     public void registerRecipes (IRecipeRegistration registration) {
         
         final Collection<RecipeCauldron> recipes = CauldronRecipes.getRecipes().values();
-        registration.addRecipes(recipes.stream().map(CauldronWrapper::new).collect(Collectors.toList()), CategoryCauldron.ID);
+        registration.addRecipes(recipes.stream().filter(r -> !r.isHidden()).map(CauldronWrapper::new).collect(Collectors.toList()), CategoryCauldron.ID);
     }
     
     @Override

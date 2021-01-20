@@ -34,7 +34,7 @@ public class Cauldron implements IRecipeManager {
         
         id = this.validateRecipeName(id);
         final ResourceLocation recipeId = new ResourceLocation(CraftTweaker.MODID, id);
-        final RecipeCauldron recipe = new RecipeCauldron(recipeId, input.asVanillaIngredient(), fluidLevel, CraftTweakerHelper.getItemStacks(outputs));
+        final RecipeCauldron recipe = new RecipeCauldron(recipeId, input.asVanillaIngredient(), fluidLevel, CraftTweakerHelper.getItemStacks(outputs), false);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
         return recipe;
     }

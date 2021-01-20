@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.darkhax.bookshelf.crafting.RecipeDataBase;
+import net.darkhax.bookshelf.serialization.Serializers;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -27,13 +28,15 @@ public class RecipeCauldron extends RecipeDataBase {
     private final Ingredient input;
     private final int fluidLevel;
     private final ItemStack[] results;
+    private boolean hidden;
     
-    public RecipeCauldron(ResourceLocation id, Ingredient input, int fluidLevel, ItemStack[] result) {
+    public RecipeCauldron(ResourceLocation id, Ingredient input, int fluidLevel, ItemStack[] result, boolean hidden) {
         
         super(id);
         this.input = input;
         this.fluidLevel = fluidLevel;
         this.results = result;
+        this.hidden = hidden;
     }
     
     @Override
@@ -66,6 +69,16 @@ public class RecipeCauldron extends RecipeDataBase {
     public boolean matches (ItemStack item, int level) {
         
         return this.input.test(item) && this.fluidLevel <= level;
+    }
+    
+    public boolean isHidden () {
+        
+        return this.hidden;
+    }
+    
+    public void setHidden (boolean isHidden) {
+        
+        this.hidden = isHidden;
     }
     
     @Override
@@ -150,7 +163,8 @@ public class RecipeCauldron extends RecipeDataBase {
             final Ingredient input = Ingredient.deserialize(json.get("input"));
             final int fluidLevel = JSONUtils.getInt(json, "fluidLevel", 1);
             final ItemStack[] results = json.has("result") ? readItemStacks(json.get("result"), true).toArray(new ItemStack[0]) : new ItemStack[0];
-            return new RecipeCauldron(recipeId, input, fluidLevel, results);
+            final boolean hidden = Serializers.BOOLEAN.read(json, "hidden", false);
+            return new RecipeCauldron(recipeId, input, fluidLevel, results, hidden);
         }
         
         @Override
@@ -159,7 +173,8 @@ public class RecipeCauldron extends RecipeDataBase {
             final Ingredient input = Ingredient.read(buffer);
             final int fluidLevel = buffer.readInt();
             final ItemStack[] results = readItemStackArray(buffer);
-            return new RecipeCauldron(recipeId, input, fluidLevel, results);
+            final boolean hidden = buffer.readBoolean();
+            return new RecipeCauldron(recipeId, input, fluidLevel, results, hidden);
         }
         
         @Override
@@ -168,6 +183,7 @@ public class RecipeCauldron extends RecipeDataBase {
             recipe.input.write(buffer);
             buffer.writeInt(recipe.fluidLevel);
             writeItemStackArray(buffer, recipe.results);
+            buffer.writeBoolean(recipe.isHidden());
         }
     }
 }
