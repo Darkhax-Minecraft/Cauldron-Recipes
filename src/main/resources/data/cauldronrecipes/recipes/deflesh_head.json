@@ -1,0 +1,14 @@
+{
+    "type": "cauldronrecipes:cauldron_recipe",
+    "group": "clean_piston",
+    "fluidLevel": 3,
+    "input": [
+        {
+            "item": "minecraft:player_head"
+        },
+        {
+            "item": "minecraft:zombie_head"
+        }
+    ],
+    "result": "minecraft:skeleton_skull"
+}
