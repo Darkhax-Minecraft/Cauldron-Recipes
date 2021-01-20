@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
 public class CauldronRecipeTrigger extends AbstractCriterionTrigger<CauldronRecipeTrigger.Instance> {
     
     private static final ResourceLocation ID = new ResourceLocation(CauldronRecipes.MOD_ID, "recipe_crafted");
-       
+    
     public void trigger (ServerPlayerEntity player, RecipeCauldron recipe) {
         
         this.triggerListeners(player, (instance) -> instance.test(recipe));

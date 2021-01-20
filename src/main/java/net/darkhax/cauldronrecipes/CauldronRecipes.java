@@ -38,7 +38,7 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 public class CauldronRecipes {
     
     public static final String MOD_ID = "cauldronrecipes";
-    public static final Logger LOGGER = LogManager.getLogger("Cauldron Recipes");   
+    public static final Logger LOGGER = LogManager.getLogger("Cauldron Recipes");
     public static IRecipeType<RecipeCauldron> recipeType;
     
     private final RegistryHelper registry = new RegistryHelper("cauldronrecipes", LOGGER);
@@ -50,10 +50,10 @@ public class CauldronRecipes {
         this.registry.recipeSerializers.register(RecipeCauldron.SERIALIZER, "cauldron_recipe");
         
         this.registry.initialize(FMLJavaModLoadingContext.get().getModEventBus());
-        MinecraftForge.EVENT_BUS.addListener(this::onPlayerClickBlock);        
+        MinecraftForge.EVENT_BUS.addListener(this::onPlayerClickBlock);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         
-        cauldronTrigger = CriteriaTriggers.register(new CauldronRecipeTrigger());
+        this.cauldronTrigger = CriteriaTriggers.register(new CauldronRecipeTrigger());
     }
     
     private void setup (FMLCommonSetupEvent event) {
