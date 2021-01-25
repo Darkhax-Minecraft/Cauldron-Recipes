@@ -53,7 +53,9 @@ minecraft {
         
             workingDirectory project.file('run')
             taskName "${mod_name} Client"
-
+            jvmArg "-Dmixin.env.disableRefMap=true"
+            property 'forge.logging.console.level', 'debug'
+            
             mods {
                 cauldronrecipes {
                     source sourceSets.main
@@ -62,8 +64,11 @@ minecraft {
         }
 
         server {
+        
             workingDirectory project.file('run')
             taskName "${mod_name} Server"
+            jvmArg "-Dmixin.env.disableRefMap=true"
+            property 'forge.logging.console.level', 'debug'
             
             mods {
                 cauldronrecipes {
